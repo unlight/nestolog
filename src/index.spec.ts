@@ -1,11 +1,11 @@
 import expect from 'expect';
 
-import * as library from '.';
+import { messageColumnWidth } from './message-column-width';
+import { nestologOptionsDefaults } from './nestolog-options.provider';
 
-it('smoke', () => {
-    expect(library).toEqual(expect.anything());
-});
-
-it('hello test', () => {
-    expect(library.hello()).toEqual('Hello world');
+describe('nestoLog', () => {
+    it('configure messageColumnWidth temp', () => {
+        const result = messageColumnWidth(nestologOptionsDefaults);
+        expect(result).not.toBeUndefined();
+    });
 });
