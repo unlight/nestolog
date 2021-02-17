@@ -7,8 +7,11 @@ import stringify from 'string.ify';
 import wrapAnsi from 'wrap-ansi';
 
 import { messageColumnWidth } from './message-column-width';
-import { customLocateDefault } from './nestolog-options';
-import { NESTOLOG_OPTIONS, NestologOptions } from './nestolog-options.provider';
+import {
+    customLocateDefault,
+    NESTOLOG_OPTIONS,
+    NestologOptions,
+} from './nestolog-options';
 import { Entry } from './types';
 
 // ololog pipeline: stringify trim lines concat indent tag time locate join render returnValue

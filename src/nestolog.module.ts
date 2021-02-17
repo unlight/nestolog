@@ -5,7 +5,7 @@ import {
     NESTOLOG_OPTIONS,
     NestologOptions,
     nestologOptionsDefaults,
-} from './nestolog-options.provider';
+} from './nestolog-options';
 import { NestoLogger } from './nestologger.service';
 
 @Module({})

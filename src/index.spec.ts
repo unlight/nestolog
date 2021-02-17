@@ -2,7 +2,7 @@ import ansicolor from 'ansicolor';
 import expect from 'expect';
 
 import { messageColumnWidth } from './message-column-width';
-import { nestologOptionsDefaults } from './nestolog-options.provider';
+import { nestologOptionsDefaults } from './nestolog-options';
 import { NestoLogger } from './nestologger.service';
 
 it('messageColumnWidth', () => {

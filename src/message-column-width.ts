@@ -2,7 +2,7 @@ import ansicolor from 'ansicolor';
 import ololog from 'ololog';
 import termSize from 'term-size';
 
-import { NestologOptions } from './nestolog-options.provider';
+import { NestologOptions } from './nestolog-options';
 
 export function messageColumnWidth(
     options: NestologOptions,
