@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/unlight/nestolog/compare/v1.1.0...v1.1.1) (2021-02-17)
+
+
+### Bug Fixes
+
+* Override options ([4d2f3c7](https://github.com/unlight/nestolog/commit/4d2f3c70baf5421b085af30036a61385fd6457b7))
+
 # [1.1.0](https://github.com/unlight/nestolog/compare/v1.0.0...v1.1.0) (2021-02-17)
 
 
