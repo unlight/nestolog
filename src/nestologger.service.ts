@@ -7,7 +7,9 @@ import stringify from 'string.ify';
 import wrapAnsi from 'wrap-ansi';
 
 import { messageColumnWidth } from './message-column-width';
+import { customLocateDefault } from './nestolog-options';
 import { NESTOLOG_OPTIONS, NestologOptions } from './nestolog-options.provider';
+import { Entry } from './types';
 
 // ololog pipeline: stringify trim lines concat indent tag time locate join render returnValue
 
@@ -17,7 +19,7 @@ export class NestoLogger implements LoggerService {
     verbose = this.debug;
 
     constructor(
-        @Inject(NESTOLOG_OPTIONS) private readonly options: Required<NestologOptions>,
+        @Inject(NESTOLOG_OPTIONS) private readonly options: NestologOptions,
         @Inject('ololog') @Optional() private readonly logger = ololog,
     ) {
         this.logger = this.createLogger(logger);
@@ -29,6 +31,7 @@ export class NestoLogger implements LoggerService {
             this.options.messageColumnWidth || messageColumnWidth(this.options, logger);
         if (width && width > 0) {
             logger = logger.configure({
+                locate: false,
                 '+lines': (lines: string[]) => {
                     lines = lines.map(line => wrapAnsi(line, width, { trim: false }));
                     return lines;
@@ -39,37 +42,34 @@ export class NestoLogger implements LoggerService {
     }
 
     log(message: any, context?: string): void {
+        const where = new StackTracey().clean().at(1);
         const log = this.logger.configure({
-            locate: {
-                where: new StackTracey().clean().at(1),
-            },
+            locate: { where },
             tag: { level: 'info' },
             render: { consoleMethod: 'info' },
-            'concat+': this.concatContext(context),
+            'concat+': this.concatContext({ context, where }),
         });
         log(message);
     }
 
     warn(message: any, context?: string): void {
+        const where = new StackTracey().clean().at(1);
         const log = this.logger.configure({
-            locate: {
-                where: new StackTracey().clean().at(1),
-            },
+            locate: { where },
             tag: { level: 'warn' },
             render: { consoleMethod: 'warn' },
-            'concat+': this.concatContext(context),
+            'concat+': this.concatContext({ context, where }),
         });
         log(message);
     }
 
     error(message: any, trace?: string, context?: string): void {
+        const where = new StackTracey().clean().at(1);
         const log = this.logger.configure({
-            locate: {
-                where: new StackTracey().clean().at(1),
-            },
+            locate: { where },
             tag: { level: 'error' },
             render: { consoleMethod: 'error' },
-            'concat+': this.concatContext(context),
+            'concat+': this.concatContext({ context, where }),
         });
         if (!trace && message instanceof Error && !message.stack) {
             Error.captureStackTrace(message);
@@ -81,26 +81,35 @@ export class NestoLogger implements LoggerService {
     }
 
     debug(message: any, context?: string): void {
+        const where = new StackTracey().clean().at(1);
         const log = this.logger.configure({
-            locate: {
-                where: new StackTracey().clean().at(1),
-            },
+            locate: { where },
             tag: { level: 'debug' },
             render: { consoleMethod: 'debug' },
-            'concat+': this.concatContext(context),
+            'concat+': this.concatContext({ context, where }),
         });
         log(message);
     }
 
-    private concatContext(context: string | undefined) {
-        const contextLimit = this.options.contextLimit;
-        if (!(context && contextLimit > 0)) {
-            return;
-        }
-        // eslint-disable-next-line consistent-return
+    private concatContext({ context, where }: { context?: string; where?: Entry }) {
+        const { contextLimit } = this.options;
+        const customLocate =
+            this.options.customLocate === true
+                ? customLocateDefault
+                : this.options.customLocate;
         return (lines: string[]) => {
-            context = stringify.limit(context, contextLimit).padEnd(contextLimit);
-            return bullet(ansicolor.yellow(context + ' '), lines) as string;
+            if (where && customLocate) {
+                lines.push(ansicolor.darkGray(customLocate(where)));
+            }
+            if (context) {
+                if (contextLimit > 0) {
+                    context = stringify
+                        .limit(context, contextLimit)
+                        .padEnd(contextLimit);
+                }
+                return bullet(ansicolor.yellow(context + ' '), lines);
+            }
+            return lines;
         };
     }
 }

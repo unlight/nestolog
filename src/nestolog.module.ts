@@ -11,7 +11,7 @@ import { NestoLogger } from './nestologger.service';
 
 @Module({})
 export class NestologModule {
-    static forRoot(options: NestologOptions = {}): DynamicModule {
+    static forRoot(options: Partial<NestologOptions> = {}): DynamicModule {
         options = { ...nestologOptionsDefaults, ...options };
         return {
             module: NestologModule,
