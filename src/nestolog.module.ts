@@ -5,7 +5,6 @@ import {
     NESTOLOG_OPTIONS,
     NestologOptions,
     nestologOptionsDefaults,
-    nestologOptionsProvider,
 } from './nestolog-options.provider';
 import { NestoLogger } from './nestologger.service';
 
@@ -25,7 +24,6 @@ export class NestologModule {
                     provide: NESTOLOG_OPTIONS,
                     useValue: options,
                 },
-                nestologOptionsProvider,
                 NestoLogger,
             ],
             exports: [NestoLogger],
