@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/unlight/nestolog/compare/v1.1.1...v1.2.0) (2021-02-18)
+
+
+### Features
+
+* Locate position column ([8186240](https://github.com/unlight/nestolog/commit/8186240e062a9211c818583c05fe48cce18e60a6))
+
 ## [1.1.1](https://github.com/unlight/nestolog/compare/v1.1.0...v1.1.1) (2021-02-17)
 
 
