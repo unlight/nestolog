@@ -27,7 +27,7 @@ export class AppModule {}
 
 ```ts
 /**
- * Limit context to this number of chars.
+ * Limit of context message.
  */
 contextLimit: 13,
 /**
@@ -36,6 +36,21 @@ contextLimit: 13,
  * If -1 disable
  */
 messageColumnWidth: 0,
+/**
+ * Alternative locate. Default ololog's locate add callee info to the last non-empty string
+ * Custom locate add callee info on next new line.
+ */
+customLocate: undefined as undefined | boolean | typeof customLocateDefault,
+/**
+ * Place of callee info.
+ * 'bottom' - next on new line (default)
+ * 'column' - between tag and message columnized
+ */
+customLocatePosition: 'bottom' as 'bottom' | 'column',
+/**
+ * Limit callee info length in case of customLocatePosition = 'column'
+ */
+customLocateColumnLimit: 30,
 ```
 
 ## Use as the main Nest Logger

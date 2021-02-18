@@ -95,14 +95,25 @@ export class NestoLogger implements LoggerService {
     }
 
     private concatContext({ context, where }: { context?: string; where?: Entry }) {
-        const { contextLimit } = this.options;
+        const {
+            contextLimit,
+            customLocatePosition,
+            customLocateColumnLimit,
+        } = this.options;
         const customLocate =
             this.options.customLocate === true
                 ? customLocateDefault
                 : this.options.customLocate;
         return (lines: string[]) => {
             if (where && customLocate) {
-                lines.push(ansicolor.darkGray(customLocate(where)));
+                let calleeInfo = customLocate(where, this.options);
+                if (customLocatePosition === 'column') {
+                    calleeInfo = calleeInfo.padEnd(customLocateColumnLimit);
+                    calleeInfo = stringify.limit(calleeInfo, customLocateColumnLimit);
+                    lines = bullet(ansicolor.darkGray(calleeInfo) + ' ', lines);
+                } else {
+                    lines.push(ansicolor.darkGray(calleeInfo));
+                }
             }
             if (context) {
                 if (contextLimit > 0) {
@@ -110,7 +121,7 @@ export class NestoLogger implements LoggerService {
                         .limit(context, contextLimit)
                         .padEnd(contextLimit);
                 }
-                return bullet(ansicolor.yellow(context + ' '), lines);
+                lines = bullet(ansicolor.yellow(context + ' '), lines);
             }
             return lines;
         };

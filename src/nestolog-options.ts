@@ -4,10 +4,16 @@ import { Entry } from './types';
 
 export const NESTOLOG_OPTIONS = Symbol('NESTOLOG_OPTIONS');
 
+export type NestologOptions = typeof nestologOptionsDefaults &
+    Parameters<typeof ololog.configure>[0];
+
 export const nestologOptionsDefaults = {
     time: true,
     locate: true,
     tag: true,
+    /**
+     * Limit of context message.
+     */
     contextLimit: 13,
     /**
      * Word wrap width for message.
@@ -20,9 +26,23 @@ export const nestologOptionsDefaults = {
      * Custom locate add callee info on next new line.
      */
     customLocate: undefined as undefined | boolean | typeof customLocateDefault,
+    /**
+     * Place of callee info.
+     * 'bottom' - next on new line (default)
+     * 'column' - between tag and message columnized
+     */
+    customLocatePosition: 'bottom' as 'bottom' | 'column',
+    /**
+     * Limit callee info length in case of customLocatePosition = 'column'
+     */
+    customLocateColumnLimit: 30,
 };
 
-export function customLocateDefault({ calleeShort, fileName, line }: Entry): string {
+export function customLocateDefault(
+    { calleeShort, fileName, line }: Entry,
+    options: NestologOptions,
+): string {
+    const { customLocatePosition, customLocateColumnLimit } = options;
     let result = '';
     if (calleeShort) {
         result += calleeShort;
@@ -35,8 +55,13 @@ export function customLocateDefault({ calleeShort, fileName, line }: Entry): str
         result += ':';
         result += line;
     }
+    if (
+        customLocatePosition === 'column' &&
+        result.length > customLocateColumnLimit &&
+        fileName &&
+        line
+    ) {
+        result = `${fileName}:${line}`;
+    }
     return result;
 }
-
-export type NestologOptions = typeof nestologOptionsDefaults &
-    Parameters<typeof ololog.configure>[0];
