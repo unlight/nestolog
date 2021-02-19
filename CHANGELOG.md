@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/unlight/nestolog/compare/v1.2.0...v1.2.1) (2021-02-19)
+
+
+### Bug Fixes
+
+* Take into account width if set `customLocatePosition` option ([29d7d02](https://github.com/unlight/nestolog/commit/29d7d02a79d5eed82983eda8593792cd752aba0f))
+
 # [1.2.0](https://github.com/unlight/nestolog/compare/v1.1.1...v1.2.0) (2021-02-18)
 
 
