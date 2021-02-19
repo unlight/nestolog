@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/unlight/nestolog/compare/v1.2.1...v1.3.0) (2021-02-19)
+
+
+### Features
+
+* New option for `customLocatePosition` option - `context` ([81c54b7](https://github.com/unlight/nestolog/commit/81c54b76d42ea5193af636c53c1d1890b7edb180))
+
 ## [1.2.1](https://github.com/unlight/nestolog/compare/v1.2.0...v1.2.1) (2021-02-19)
 
 
