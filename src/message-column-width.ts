@@ -8,7 +8,7 @@ export function messageColumnWidth(
     options: NestologOptions,
     log: ololog = ololog.configure(options),
 ): number {
-    const { contextLimit = 0 } = options;
+    const { contextLimit = 0, customLocatePosition, customLocateColumnLimit } = options;
     let result = 0;
     log = log.configure({
         render: (input: string) => {
@@ -16,6 +16,9 @@ export function messageColumnWidth(
                 termSize().columns -
                 ansicolor.strip(input).replace(/\t/g, ' '.repeat(4)).length -
                 (Math.max(0, contextLimit) || 0);
+            if (customLocatePosition === 'column') {
+                result -= customLocateColumnLimit;
+            }
             result = Math.max(0, result) || 0;
         },
     });
