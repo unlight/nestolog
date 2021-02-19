@@ -48,3 +48,14 @@ it('custom locate column', () => {
     expect(lines).toHaveLength(1);
     expect(output).toContain('Context       index.spec.ts');
 });
+
+it('custom locate context', () => {
+    let output = createOutput({
+        customLocate: true,
+        customLocatePosition: 'context',
+        context: '',
+        contextLimit: 80,
+    });
+    output = output.replace(/\s+/g, ' ');
+    expect(output).toContain('INFO createOutput @ index.spec.ts');
+});

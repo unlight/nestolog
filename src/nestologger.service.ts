@@ -111,6 +111,12 @@ export class NestoLogger implements LoggerService {
                     calleeInfo = calleeInfo.padEnd(customLocateColumnLimit);
                     calleeInfo = stringify.limit(calleeInfo, customLocateColumnLimit);
                     lines = bullet(ansicolor.darkGray(calleeInfo) + ' ', lines);
+                } else if (customLocatePosition === 'context' && !context) {
+                    calleeInfo = customLocate(where, {
+                        ...this.options,
+                        customLocateColumnLimit: contextLimit,
+                    });
+                    context = calleeInfo;
                 } else {
                     lines.push(ansicolor.darkGray(calleeInfo));
                 }

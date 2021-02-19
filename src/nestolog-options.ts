@@ -30,8 +30,9 @@ export const nestologOptionsDefaults = {
      * Place of callee info.
      * 'bottom' - next on new line (default)
      * 'column' - between tag and message columnized
+     * 'context' - in context column if context is empty
      */
-    customLocatePosition: 'bottom' as 'bottom' | 'column',
+    customLocatePosition: 'bottom' as 'bottom' | 'column' | 'context',
     /**
      * Limit callee info length in case of customLocatePosition = 'column'
      */
