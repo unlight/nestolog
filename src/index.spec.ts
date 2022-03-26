@@ -1,12 +1,18 @@
 import ansicolor from 'ansicolor';
-import expect from 'expect';
+import { expect, it } from 'vitest';
 
 import { messageColumnWidth } from './message-column-width';
 import { NestologOptions, nestologOptionsDefaults } from './nestolog-options';
 import { NestoLogger } from './nestologger.service';
 
 function createOutput(
-    options: Partial<NestologOptions & { message?: string; context?: string }> = {},
+    options: Partial<
+        NestologOptions & {
+            message?: string;
+            context?: string;
+            method: 'log' | 'warn' | 'error' | 'debug';
+        }
+    > = {},
 ) {
     let output = '';
     const message = options.message ?? 'Test Message';
@@ -18,9 +24,15 @@ function createOutput(
             output = ansicolor.strip(input);
         },
     });
-    logger.log(message, context);
+    const method = options.method ?? 'log';
+    logger[method](message, context);
     return output;
 }
+
+it('log', () => {
+    const output = createOutput({});
+    expect(output).toMatch('INFO\t');
+});
 
 it('messageColumnWidth', () => {
     const result = messageColumnWidth(nestologOptionsDefaults);
@@ -58,4 +70,19 @@ it('custom locate context', () => {
     });
     output = output.replace(/\s+/g, ' ');
     expect(output).toContain('INFO createOutput @ index.spec.ts');
+});
+
+it('warn', () => {
+    const output = createOutput({ method: 'warn' });
+    expect(output).toMatch('WARN\t');
+});
+
+it('error', () => {
+    const output = createOutput({ method: 'error' });
+    expect(output).toMatch('ERROR\t');
+});
+
+it('debug', () => {
+    const output = createOutput({ method: 'debug' });
+    expect(output).toMatch('DEBUG\t');
 });

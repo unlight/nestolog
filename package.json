@@ -3,8 +3,15 @@
   "version": "0.0.0-dev",
   "license": "MIT",
   "description": "Logger for NestJS, implements `LoggerService`",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "types": "./index.d.ts",
+  "main": "./cjs/index.js",
+  "module": "./mjs/index.mjs",
+  "exports": {
+    ".": {
+      "import": "./mjs/index.mjs",
+      "require": "./cjs/index.js"
+    }
+  },
   "keywords": [
     "nestjs",
     "ololog",
@@ -12,102 +19,6 @@
     "nestjs-logger",
     "logger"
   ],
-  "scripts": {
-    "test": "npm run eslint && npm run tscheck && npm run test:cov",
-    "test:r": "node -r ts-node/register/transpile-only node_modules/mocha/bin/_mocha src/**/*.spec.ts",
-    "test:cov": "c8 --reporter text --exclude \"**/*.spec.ts\" --exclude \"**/testing/**\"  npm run test:r -- --no-timeouts",
-    "test:w": "npm run test:r -- --watch --watch-files src/**/*.ts",
-    "lint": "npm run eslint && npm run tscheck",
-    "eslint": "node node_modules/eslint/bin/eslint \"src/**/*.{ts,tsx}\"",
-    "eslint:fix": "npm run eslint -- --fix",
-    "tscheck": "tsc --noEmit",
-    "tscheck:w": "npm run tscheck -- --watch",
-    "eslint:w": "watchexec -w src \"npm run eslint\"",
-    "lint:fix": "npm run eslint:fix && npm run lint:doc:fix",
-    "format:src": "prettier src --write",
-    "lint:commit": "sh Taskfile commit_lint",
-    "commit": "cz",
-    "semantic-release": "semantic-release",
-    "build": "sh Taskfile build_tsup",
-    "lint:w": "run-p tscheck:w eslint:w",
-    "test:d": "ndb -r ts-node/register/transpile-only node_modules/mocha/bin/_mocha --no-timeouts --watch-files src/**/*.ts --watch src/**/*.spec.ts"
-  },
-  "ultra": {
-    "concurrent": [
-      "lint",
-      "test"
-    ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-customizable"
-    }
-  },
-  "dependencies": {
-    "ansicolor": "^1.1.93",
-    "ololog": "^1.1.164",
-    "stacktracey": "^2.0.16",
-    "string.bullet": "^1.0.12",
-    "string.ify": "^1.0.64",
-    "term-size": "^2.2.1",
-    "wrap-ansi": "^7.0.0"
-  },
-  "peerDependencies": {
-    "@nestjs/common": "^7"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
-    "@medibloc/nestjs-request-context": "^1.0.0",
-    "@nestjs/common": "^7.6.12",
-    "@nestjs/core": "^7.6.12",
-    "@nestjs/platform-express": "^7.6.12",
-    "@semantic-release/changelog": "^5.0.1",
-    "@semantic-release/git": "^9.0.0",
-    "@types/express": "^4.17.11",
-    "@types/mocha": "^8.2.1",
-    "@types/node": "^14.14.31",
-    "@types/wrap-ansi": "^3.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.15.1",
-    "@typescript-eslint/parser": "^4.15.1",
-    "c8": "^7.6.0",
-    "cache-manager": "^3.4.0",
-    "class-transformer": "^0.4.0",
-    "class-validator": "^0.13.1",
-    "commitizen": "^4.2.3",
-    "cz-customizable": "^6.3.0",
-    "eslint": "^7.20.0",
-    "eslint-config-prettier": "^7.2.0",
-    "eslint-import-resolver-node": "^0.3.4",
-    "eslint-plugin-etc": "^1.3.3",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-only-warn": "^1.0.2",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-promise": "^4.3.1",
-    "eslint-plugin-regexp": "^0.1.1",
-    "eslint-plugin-simple-import-sort": "^7.0.0",
-    "eslint-plugin-sonarjs": "^0.6.0",
-    "eslint-plugin-sort-class-members": "^1.9.0",
-    "eslint-plugin-total-functions": "^4.7.2",
-    "eslint-plugin-unicorn": "^28.0.2",
-    "eslint-plugin-wix-editor": "^3.2.0",
-    "expect": "^26.6.2",
-    "git-branch-is": "^4.0.0",
-    "mocha": "^8.3.0",
-    "npm-run-all": "^4.1.5",
-    "precise-commits": "^1.0.2",
-    "prettier": "^2.2.1",
-    "reflect-metadata": "^0.1.13",
-    "semantic-release": "^17.3.9",
-    "semantic-release-monorepo": "^7.0.4",
-    "simplytyped": "^3.3.0",
-    "ts-node": "^9.1.1",
-    "tslib": "^2.1.0",
-    "tsup": "^4.0.0",
-    "typescript": "^4.1.5",
-    "ultra-runner": "^3.9.0",
-    "watchexec-bin": "^1.0.0"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/unlight/nestolog.git"
@@ -115,5 +26,89 @@
   "bugs": {
     "url": "https://github.com/unlight/nestolog/issues"
   },
-  "homepage": "https://github.com/unlight/nestolog#readme"
+  "homepage": "https://github.com/unlight/nestolog#readme",
+  "scripts": {
+    "test": "npm run eslint && npm run tscheck && npm run test:cov",
+    "test:r": "vitest run src",
+    "test:cov": "vitest run src --coverage",
+    "test:w": "vitest watch src",
+    "eslint": "node node_modules/eslint/bin/eslint \"src/**/*.{ts,tsx}\"",
+    "eslint:fix": "npm run eslint -- --fix",
+    "tscheck": "tsc --noEmit",
+    "tscheck:w": "npm run tscheck -- --watch",
+    "eslint:w": "watchexec -w src \"npm run eslint\"",
+    "format:src": "prettier src --write",
+    "lint:commit": "sh Taskfile commit_lint",
+    "commit": "cz",
+    "build": "sh Taskfile build_hybrid",
+    "test:d": "ndb node node_modules/vitest/vitest.mjs watch src"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    }
+  },
+  "peerDependencies": {
+    "@nestjs/common": ">=7"
+  },
+  "dependencies": {
+    "ansicolor": "^1.1.100",
+    "ololog": "^1.1.175",
+    "stacktracey": "^2.1.8",
+    "string.bullet": "^1.0.12",
+    "string.ify": "^1.0.64",
+    "term-size": "2.X",
+    "wrap-ansi": "7.X"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^16.2.1",
+    "@nestjs/common": "^8.4.3",
+    "@nestjs/core": "^8.4.3",
+    "@nestjs/platform-express": "^8.4.3",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@swc/core": "^1.2.160",
+    "@swc/helpers": "^0.3.8",
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.23",
+    "@types/wrap-ansi": "3.X",
+    "@typescript-eslint/eslint-plugin": "^5.16.0",
+    "@typescript-eslint/parser": "^5.16.0",
+    "c8": "^7.11.0",
+    "cache-manager": "^3.6.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.13.2",
+    "commitizen": "^4.2.4",
+    "conventional-changelog-conventionalcommits": "^4.6.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "cz-customizable": "^6.3.0",
+    "eslint": "^8.12.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-node": "^0.3.6",
+    "eslint-plugin-etc": "^2.0.2",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-only-warn": "^1.0.3",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-regexp": "^1.6.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "eslint-plugin-sonarjs": "^0.12.0",
+    "eslint-plugin-sort-class-members": "^1.14.1",
+    "eslint-plugin-total-functions": "^5.0.1",
+    "eslint-plugin-unicorn": "^41.0.1",
+    "eslint-plugin-wix-editor": "^3.3.0",
+    "express": "4.17.3",
+    "prettier": "^2.6.1",
+    "reflect-metadata": "^0.1.13",
+    "request": "^2.88.2",
+    "rxjs": "^7.5.5",
+    "semantic-release": "^19.0.2",
+    "ts-node": "^10.7.0",
+    "tslib": "^2.3.1",
+    "tsup": "^5.12.1",
+    "typescript": "^4.6.3",
+    "vitest": "^0.7.11",
+    "watchexec-bin": "^1.0.0"
+  }
 }

@@ -5,7 +5,7 @@ import {
     Injectable,
     NestInterceptor,
 } from '@nestjs/common';
-import { AsyncLocalStorage } from 'async_hooks';
+import { AsyncLocalStorage } from 'node:async_hooks';
 
 import { ASYNC_STORAGE, AsyncLocalStorageType } from './async-storage.provider';
 

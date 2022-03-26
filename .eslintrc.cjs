@@ -17,12 +17,10 @@ module.exports = {
         'plugin:etc/recommended',
         'plugin:prettier/recommended',
         'prettier',
-        'prettier/@typescript-eslint',
-        'prettier/unicorn',
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
-        ecmaVersion: 2020,
+        ecmaVersion: 2022,
         project: 'tsconfig.json',
         sourceType: 'module',
         ecmaFeatures: {

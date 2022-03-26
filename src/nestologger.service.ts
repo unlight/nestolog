@@ -8,9 +8,9 @@ import wrapAnsi from 'wrap-ansi';
 
 import { messageColumnWidth } from './message-column-width';
 import {
+    type NestologOptions,
     customLocateDefault,
     NESTOLOG_OPTIONS,
-    NestologOptions,
 } from './nestolog-options';
 import { Entry } from './types';
 
@@ -95,11 +95,8 @@ export class NestoLogger implements LoggerService {
     }
 
     private concatContext({ context, where }: { context?: string; where?: Entry }) {
-        const {
-            contextLimit,
-            customLocatePosition,
-            customLocateColumnLimit,
-        } = this.options;
+        const { contextLimit, customLocatePosition, customLocateColumnLimit } =
+            this.options;
         const customLocate =
             this.options.customLocate === true
                 ? customLocateDefault
