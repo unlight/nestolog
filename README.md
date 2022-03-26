@@ -2,6 +2,8 @@
 
 Logger for NestJS, implements `LoggerService`. Based on [ololog](https://github.com/xpl/ololog)
 
+<a target="_blank" href="https://raw.githubusercontent.com/unlight/nestolog/master/screenshots/a-1673.png"><img src="https://raw.githubusercontent.com/unlight/nestolog/master/screenshots/a-0830.png"></img></a>
+
 ## Install
 
 ```sh
@@ -20,6 +22,15 @@ import { NestologModule } from 'nestolog';
 })
 export class AppModule {}
 ```
+
+## Use as the main Nest Logger
+
+```ts
+const app = await NestFactory.create(AppModule);
+app.useLogger(app.get(NestoLogger));
+```
+
+It's not recommended to use this logger in production, since it's relative slow.
 
 ## Options
 
@@ -53,15 +64,6 @@ customLocatePosition: 'bottom' as 'bottom' | 'column' | 'context',
  */
 customLocateColumnLimit: 30,
 ```
-
-## Use as the main Nest Logger
-
-```ts
-const app = await NestFactory.create(AppModule);
-app.useLogger(app.get(NestoLogger));
-```
-
-It's not recommended to use logger in production, since it's relative slow.
 
 ## Resources
 
