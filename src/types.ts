@@ -1,9 +1,3 @@
-export type LocatePrint = (args: {
-    calleeShort: string;
-    fileName: string;
-    line: string;
-}) => string;
-
 export interface Location {
     file: string;
     line?: number;

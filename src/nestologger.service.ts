@@ -2,8 +2,6 @@ import { Inject, Injectable, LoggerService, Optional } from '@nestjs/common';
 import ansicolor from 'ansicolor';
 import ololog from 'ololog';
 import StackTracey from 'stacktracey';
-import bullet from 'string.bullet';
-import stringify from 'string.ify';
 import wrapAnsi from 'wrap-ansi';
 
 import { messageColumnWidth } from './message-column-width';
@@ -12,6 +10,7 @@ import {
     customLocateDefault,
     NESTOLOG_OPTIONS,
 } from './nestolog-options';
+import { bullet, stringify } from './string';
 import { Entry } from './types';
 
 // ololog pipeline: stringify trim lines concat indent tag time locate join render returnValue
@@ -44,7 +43,7 @@ export class NestoLogger implements LoggerService {
         return logger;
     }
 
-    log(message: any, context?: string): void {
+    log(message: unknown, context?: string): void {
         const where = new StackTracey().clean().at(1);
         const log = this.logger.configure({
             locate: { where },
@@ -55,7 +54,7 @@ export class NestoLogger implements LoggerService {
         log(message);
     }
 
-    warn(message: any, context?: string): void {
+    warn(message: unknown, context?: string): void {
         const where = new StackTracey().clean().at(1);
         const log = this.logger.configure({
             locate: { where },
@@ -66,7 +65,7 @@ export class NestoLogger implements LoggerService {
         log(message);
     }
 
-    error(message: any, trace?: string, context?: string): void {
+    error(message: unknown, trace?: string, context?: string): void {
         const where = new StackTracey().clean().at(1);
         const log = this.logger.configure({
             locate: { where },
@@ -83,7 +82,7 @@ export class NestoLogger implements LoggerService {
         }
     }
 
-    debug(message: any, context?: string): void {
+    debug(message: unknown, context?: string): void {
         const where = new StackTracey().clean().at(1);
         const log = this.logger.configure({
             locate: { where },
