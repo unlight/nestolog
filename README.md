@@ -83,5 +83,3 @@ customLocateColumnLimit: 30,
 -   https://github.com/medibloc/nestjs-request-context
 
 ## Todo
-
--   try to change time format
