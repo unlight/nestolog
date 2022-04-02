@@ -2,6 +2,7 @@ import { Inject, Injectable, LoggerService, Optional } from '@nestjs/common';
 import ansicolor from 'ansicolor';
 import ololog from 'ololog';
 import StackTracey from 'stacktracey';
+import tinydate from 'tinydate';
 import wrapAnsi from 'wrap-ansi';
 
 import { messageColumnWidth } from './message-column-width';
@@ -13,12 +14,9 @@ import {
 import { bullet, stringify } from './string';
 import { Entry } from './types';
 
-// ololog pipeline: stringify trim lines concat indent tag time locate join render returnValue
-
 @Injectable()
 export class NestoLogger implements LoggerService {
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    verbose = this.debug;
+    verbose = this.debug.bind(this);
 
     constructor(
         @Inject(NESTOLOG_OPTIONS) private readonly options: NestologOptions,
@@ -31,6 +29,7 @@ export class NestoLogger implements LoggerService {
         logger = logger.configure(this.options);
         const width =
             this.options.messageColumnWidth || messageColumnWidth(this.options, logger);
+
         if (width && width > 0) {
             logger = logger.configure({
                 locate: false,
@@ -40,6 +39,19 @@ export class NestoLogger implements LoggerService {
                 },
             });
         }
+
+        if (this.options.timeFormat) {
+            const format = tinydate(this.options.timeFormat);
+            logger = logger.configure({
+                time: {
+                    yes: true,
+                    print: (date: Date) => {
+                        return ansicolor.darkGray(format(date));
+                    },
+                },
+            });
+        }
+
         return logger;
     }
 

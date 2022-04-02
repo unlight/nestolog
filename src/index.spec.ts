@@ -1,5 +1,5 @@
 import ansicolor from 'ansicolor';
-import { expect, it } from 'vitest';
+import { expect, it, vi } from 'vitest';
 
 import { messageColumnWidth } from './message-column-width';
 import { NestologOptions, nestologOptionsDefaults } from './nestolog-options';
@@ -8,9 +8,10 @@ import { NestoLogger } from './nestologger.service';
 function createOutput(
     options: Partial<
         NestologOptions & {
-            message?: string;
+            message?: string | Error;
             context?: string;
             method: 'log' | 'warn' | 'error' | 'debug';
+            trace?: string;
         }
     > = {},
 ) {
@@ -25,7 +26,9 @@ function createOutput(
         },
     });
     const method = options.method ?? 'log';
-    logger[method](message, context);
+    if (logger[method].length === 2) logger[method](message, context);
+    else if (logger[method].length === 3)
+        logger[method](message, options.trace, context);
     return output;
 }
 
@@ -85,4 +88,26 @@ it('error', () => {
 it('debug', () => {
     const output = createOutput({ method: 'debug' });
     expect(output).toMatch('DEBUG\t');
+});
+
+it('timeFormat', () => {
+    vi.useFakeTimers();
+
+    vi.setSystemTime(new Date(2000, 1, 1, 10, 42, 56));
+
+    const output = createOutput({
+        timeFormat: '{HH}:{mm}:{ss}',
+    });
+    expect(output).toContain('10:42:56');
+
+    vi.useRealTimers();
+});
+
+it('error stack trace', () => {
+    const output = createOutput({
+        method: 'error',
+        message: new Error('foo'),
+    });
+
+    console.log('output', output);
 });

@@ -38,6 +38,10 @@ It's not recommended to use this logger in production, since it's relative slow.
 
 ```ts
 /**
+ * Format date using https://github.com/lukeed/tinydate
+ */
+timeFormat: undefined as undefined | string,
+/**
  * Limit of context message.
  */
 contextLimit: 13,
@@ -64,6 +68,10 @@ customLocatePosition: 'bottom' as 'bottom' | 'column' | 'context',
  */
 customLocateColumnLimit: 30,
 ```
+
+## Development
+
+-   ololog pipeline: stringify trim lines concat indent tag time locate join render returnValue
 
 ## Resources
 

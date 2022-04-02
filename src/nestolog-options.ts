@@ -12,6 +12,10 @@ export const nestologOptionsDefaults = {
     locate: true,
     tag: true,
     /**
+     * Format date using https://github.com/lukeed/tinydate
+     */
+    timeFormat: undefined as undefined | string,
+    /**
      * Limit of context message.
      */
     contextLimit: 13,
