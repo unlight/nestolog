@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/unlight/nestolog/compare/v1.3.0...v1.4.0) (2022-04-02)
+
+
+### Features
+
+* Format date using https://github.com/lukeed/tinydate ([77e9710](https://github.com/unlight/nestolog/commit/77e97105ed64cc7fc9fcad4b185c3dc473b2aabe))
+
 # [1.3.0](https://github.com/unlight/nestolog/compare/v1.2.1...v1.3.0) (2021-02-19)
 
 
