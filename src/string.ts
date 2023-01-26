@@ -2,7 +2,7 @@ import bullet_ from 'string.bullet';
 import stringify_ from 'string.ify';
 
 interface Stringify {
-    limit(s: string, n: number): string;
+  limit(s: string, n: number): string;
 }
 
 type StringBullet = (bullet: string, argument: string | string[]) => string[];

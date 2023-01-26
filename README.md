@@ -18,7 +18,7 @@ import { Logger } from '@nestjs/common';
 import { NestologModule } from 'nestolog';
 
 @Module({
-    imports: [NestologModule.forRoot(options)],
+  imports: [NestologModule.forRoot(options)],
 })
 export class AppModule {}
 ```
@@ -71,15 +71,17 @@ customLocateColumnLimit: 30,
 
 ## Development
 
--   ololog pipeline: stringify trim lines concat indent tag time locate join render returnValue
+- ololog pipeline: stringify trim lines concat indent tag time locate join render returnValue
 
 ## Resources
 
 ### Context Candidates
 
--   https://github.com/nestjs-steroids/async-context
--   https://github.com/yort-feng/http-context-nodejs
--   https://github.com/abonifacio/nestjs-request-context
--   https://github.com/medibloc/nestjs-request-context
+- https://github.com/nestjs-steroids/async-context
+- https://github.com/yort-feng/http-context-nodejs
+- https://github.com/abonifacio/nestjs-request-context
+- https://github.com/medibloc/nestjs-request-context
 
-## Todo
+## License
+
+[MIT License](https://opensource.org/licenses/MIT) (c) 2023
