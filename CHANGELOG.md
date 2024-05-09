@@ -1,3 +1,15 @@
+# [3.0.0](https://github.com/unlight/nestolog/compare/v2.0.1...v3.0.0) (2024-05-09)
+
+
+### Code Refactoring
+
+* Use module definition to build dynamic module ([5e3a082](https://github.com/unlight/nestolog/commit/5e3a082ca0dbba5596e805c3a63d2a15743a12e6))
+
+
+### BREAKING CHANGES
+
+* Methods renamed `forRoot(Async)` to `register(Async)`
+
 ## [2.0.1](https://github.com/unlight/nestolog/compare/v2.0.0...v2.0.1) (2024-05-09)
 
 
