@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/unlight/nestolog/compare/v2.0.0...v2.0.1) (2024-05-09)
+
+
+### Bug Fixes
+
+* Reverts exports nestolog ([90708b5](https://github.com/unlight/nestolog/commit/90708b53c0ffb74485a8ba8b840aaeb1ae2d4265))
+
 # [2.0.0](https://github.com/unlight/nestolog/compare/v1.4.0...v2.0.0) (2024-05-09)
 
 
