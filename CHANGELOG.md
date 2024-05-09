@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/unlight/nestolog/compare/v1.4.0...v2.0.0) (2024-05-09)
+
+
+### chore
+
+* Update dependencies ([43764cc](https://github.com/unlight/nestolog/commit/43764cc0a6203de7fa4bfa50391912a36c259b3b))
+
+
+### BREAKING CHANGES
+
+* Update dependencies (Nest.js >=10)
+
 # [1.4.0](https://github.com/unlight/nestolog/compare/v1.3.0...v1.4.0) (2022-04-02)
 
 
