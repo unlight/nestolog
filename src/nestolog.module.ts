@@ -8,9 +8,7 @@ import {
 } from './nestolog-options';
 import { NestoLogger } from './nestologger.service';
 
-@Module({
-  exports: [NestoLogger],
-})
+@Module({})
 export class NestologModule {
   static forRoot(options: Partial<NestologOptions> = {}): DynamicModule {
     options = { ...nestologOptionsDefaults, ...options };
