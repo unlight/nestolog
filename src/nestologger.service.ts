@@ -6,10 +6,11 @@ import tinydate from 'tinydate';
 import wrapAnsi from 'wrap-ansi';
 
 import { messageColumnWidth } from './message-column-width';
+import { MODULE_OPTIONS_TOKEN } from './nestolog.module-definition';
 import {
-  type NestologOptions,
   customLocateDefault,
-  NESTOLOG_OPTIONS,
+  type NestologOptions,
+  nestologOptionsDefaults,
 } from './nestolog-options';
 import { bullet, stringify } from './string';
 import { Entry } from './types';
@@ -19,14 +20,14 @@ export class NestoLogger implements LoggerService {
   verbose = this.debug.bind(this);
 
   constructor(
-    @Inject(NESTOLOG_OPTIONS) private readonly options: NestologOptions,
+    @Inject(MODULE_OPTIONS_TOKEN) private readonly options: NestologOptions,
     @Inject('ololog') @Optional() private readonly logger = ololog,
   ) {
     this.logger = this.createLogger(logger);
   }
 
   private createLogger(logger: ololog) {
-    logger = logger.configure(this.options);
+    logger = logger.configure({ ...nestologOptionsDefaults, ...this.options });
     const width =
       this.options.messageColumnWidth ||
       messageColumnWidth(this.options, logger);

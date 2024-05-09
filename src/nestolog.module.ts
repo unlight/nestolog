@@ -1,32 +1,10 @@
-import { DynamicModule, Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 
-// import { asyncStorageProvider } from './async-storage.provider';
-import {
-  NESTOLOG_OPTIONS,
-  NestologOptions,
-  nestologOptionsDefaults,
-} from './nestolog-options';
+import { ConfigurableModuleClass } from './nestolog.module-definition';
 import { NestoLogger } from './nestologger.service';
 
-@Module({})
-export class NestologModule {
-  static forRoot(options: Partial<NestologOptions> = {}): DynamicModule {
-    options = { ...nestologOptionsDefaults, ...options };
-    return {
-      module: NestologModule,
-      providers: [
-        // {
-        //     provide: APP_INTERCEPTOR,
-        //     useClass: AsyncStorageInterceptor,
-        // },
-        // asyncStorageProvider,
-        {
-          provide: NESTOLOG_OPTIONS,
-          useValue: options,
-        },
-        NestoLogger,
-      ],
-      exports: [NestoLogger],
-    };
-  }
-}
+@Module({
+  providers: [NestoLogger, Logger],
+  exports: [NestoLogger, Logger],
+})
+export class NestologModule extends ConfigurableModuleClass {}

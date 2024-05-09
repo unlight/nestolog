@@ -2,8 +2,6 @@ import ololog from 'ololog';
 
 import { Entry } from './types';
 
-export const NESTOLOG_OPTIONS = Symbol('NESTOLOG_OPTIONS');
-
 export type NestologOptions = typeof nestologOptionsDefaults &
   Parameters<typeof ololog.configure>[0];
 
