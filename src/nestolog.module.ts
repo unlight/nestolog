@@ -4,7 +4,7 @@ import { ConfigurableModuleClass } from './nestolog.module-definition';
 import { NestoLogger } from './nestologger.service';
 
 @Module({
-  providers: [NestoLogger, Logger],
   exports: [NestoLogger, Logger],
+  providers: [NestoLogger, Logger],
 })
 export class NestologModule extends ConfigurableModuleClass {}

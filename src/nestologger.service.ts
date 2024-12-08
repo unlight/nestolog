@@ -34,11 +34,11 @@ export class NestoLogger implements LoggerService {
 
     if (width && width > 0) {
       logger = logger.configure({
-        locate: false,
         '+lines': (lines: string[]) => {
           lines = lines.map(line => wrapAnsi(line, width, { trim: false }));
           return lines;
         },
+        locate: false,
       });
     }
 
@@ -46,10 +46,10 @@ export class NestoLogger implements LoggerService {
       const format = tinydate(this.options.timeFormat);
       logger = logger.configure({
         time: {
-          yes: true,
           print: (date: Date) => {
             return ansicolor.darkGray(format(date));
           },
+          yes: true,
         },
       });
     }
@@ -60,10 +60,10 @@ export class NestoLogger implements LoggerService {
   log(message: unknown, context?: string): void {
     const where = new StackTracey().clean().at(1);
     const log = this.logger.configure({
-      locate: { where },
-      tag: { level: 'info' },
-      render: { consoleMethod: 'info' },
       'concat+': this.concatContext({ context, where }),
+      locate: { where },
+      render: { consoleMethod: 'info' },
+      tag: { level: 'info' },
     });
     log(message);
   }
@@ -71,10 +71,10 @@ export class NestoLogger implements LoggerService {
   warn(message: unknown, context?: string): void {
     const where = new StackTracey().clean().at(1);
     const log = this.logger.configure({
-      locate: { where },
-      tag: { level: 'warn' },
-      render: { consoleMethod: 'warn' },
       'concat+': this.concatContext({ context, where }),
+      locate: { where },
+      render: { consoleMethod: 'warn' },
+      tag: { level: 'warn' },
     });
     log(message);
   }
@@ -82,10 +82,10 @@ export class NestoLogger implements LoggerService {
   error(message: unknown, trace?: string, context?: string): void {
     const where = new StackTracey().clean().at(1);
     const log = this.logger.configure({
-      locate: { where },
-      tag: { level: 'error' },
-      render: { consoleMethod: 'error' },
       'concat+': this.concatContext({ context, where }),
+      locate: { where },
+      render: { consoleMethod: 'error' },
+      tag: { level: 'error' },
     });
     if (!trace && message instanceof Error && !message.stack) {
       Error.captureStackTrace(message);
@@ -99,10 +99,10 @@ export class NestoLogger implements LoggerService {
   debug(message: unknown, context?: string): void {
     const where = new StackTracey().clean().at(1);
     const log = this.logger.configure({
-      locate: { where },
-      tag: { level: 'debug' },
-      render: { consoleMethod: 'debug' },
       'concat+': this.concatContext({ context, where }),
+      locate: { where },
+      render: { consoleMethod: 'debug' },
+      tag: { level: 'debug' },
     });
     log(message);
   }
@@ -114,7 +114,7 @@ export class NestoLogger implements LoggerService {
     context?: string;
     where?: Entry;
   }) {
-    const { contextLimit, customLocatePosition, customLocateColumnLimit } =
+    const { contextLimit, customLocateColumnLimit, customLocatePosition } =
       this.options;
     const customLocate =
       this.options.customLocate === true

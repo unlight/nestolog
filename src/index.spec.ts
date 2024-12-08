@@ -66,10 +66,10 @@ it('custom locate column', () => {
 
 it('custom locate context', () => {
   let output = createOutput({
-    customLocate: true,
-    customLocatePosition: 'context',
     context: '',
     contextLimit: 80,
+    customLocate: true,
+    customLocatePosition: 'context',
   });
   output = output.replace(/\s+/g, ' ');
   expect(output).toContain('INFO createOutput @ index.spec.ts');
@@ -105,8 +105,8 @@ it('timeFormat', () => {
 
 it('error stack trace', () => {
   const output = createOutput({
-    method: 'error',
     message: new Error('foo'),
+    method: 'error',
   });
 
   console.log('output', output);

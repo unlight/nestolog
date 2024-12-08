@@ -10,8 +10,8 @@ export function messageColumnWidth(
 ): number {
   const {
     contextLimit = 0,
-    customLocatePosition,
     customLocateColumnLimit,
+    customLocatePosition,
   } = options;
   let result = 0;
   log = log.configure({
