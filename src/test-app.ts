@@ -34,7 +34,9 @@ export class UserModule {}
 export class AppModule {}
 
 const bootstrap = async (): Promise<void> => {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: NestoLogger.create({ tag: false, time: false }),
+  });
   const port = process.env.PORT ?? 3333;
   app.useLogger(app.get(NestoLogger));
 

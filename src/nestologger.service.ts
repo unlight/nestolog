@@ -1,4 +1,4 @@
-import { Inject, Injectable, LoggerService, Optional } from '@nestjs/common';
+import { Inject, Injectable, LoggerService } from '@nestjs/common';
 import ansicolor from 'ansicolor';
 import ololog from 'ololog';
 import StackTracey from 'stacktracey';
@@ -18,12 +18,16 @@ import { Entry } from './types';
 @Injectable()
 export class NestoLogger implements LoggerService {
   verbose = this.debug.bind(this);
+  private logger: typeof ololog;
 
   constructor(
     @Inject(MODULE_OPTIONS_TOKEN) private readonly options: NestologOptions,
-    @Inject('ololog') @Optional() private readonly logger = ololog,
   ) {
-    this.logger = this.createLogger(logger);
+    this.logger = this.createLogger(ololog);
+  }
+
+  static create(options?: Partial<NestologOptions>) {
+    return new NestoLogger({ ...nestologOptionsDefaults, ...options });
   }
 
   private createLogger(logger: ololog) {

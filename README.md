@@ -32,7 +32,7 @@ app.useLogger(app.get(NestoLogger));
 
 It's not recommended to use this logger in production, since it's relative slow.
 
-## Options
+### Options
 
 [Ololog configuration](https://github.com/xpl/ololog#configuration) and plus custom configuration:
 
@@ -67,6 +67,14 @@ customLocatePosition: 'bottom' as 'bottom' | 'column' | 'context',
  * Limit callee info length in case of customLocatePosition = 'column'
  */
 customLocateColumnLimit: 30,
+```
+
+## Create instance by static method
+
+```ts
+const app = await NestFactory.create(AppModule, {
+  logger: NestoLogger.create(),
+});
 ```
 
 ## Development

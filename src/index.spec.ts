@@ -32,6 +32,12 @@ function createOutput(
   return output;
 }
 
+it('create static instance', () => {
+  const logger = NestoLogger.create();
+
+  expect(logger).toBeInstanceOf(NestoLogger);
+});
+
 it('log', () => {
   const output = createOutput({});
   expect(output).toMatch('INFO\t');
