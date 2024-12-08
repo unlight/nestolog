@@ -1,3 +1,10 @@
+# [3.1.0](https://github.com/unlight/nestolog/compare/v3.0.0...v3.1.0) (2024-12-08)
+
+
+### Features
+
+* Add static method `create` ([b7ce3a9](https://github.com/unlight/nestolog/commit/b7ce3a9c44dc0f3d09ad124e614542e1ccbc5543))
+
 # [3.0.0](https://github.com/unlight/nestolog/compare/v2.0.1...v3.0.0) (2024-05-09)
 
 
