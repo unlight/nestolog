@@ -1,6 +1,6 @@
 {
   "ts-node": {
-    "swc": true,
+    "swc": false,
     "transpileOnly": true,
     "compilerOptions": {
       "target": "ES2022",
@@ -27,5 +27,5 @@
     "skipLibCheck": true,
     "lib": ["esnext"]
   },
-  "include": ["src"]
+  "include": ["src", "app"]
 }

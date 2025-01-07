@@ -85,11 +85,13 @@ const app = await NestFactory.create(AppModule, {
 
 ### Context Candidates
 
+- https://github.com/Papooch/nestjs-cls
 - https://github.com/nestjs-steroids/async-context
 - https://github.com/yort-feng/http-context-nodejs
 - https://github.com/abonifacio/nestjs-request-context
 - https://github.com/medibloc/nestjs-request-context
+- https://gist.github.com/bengry/924a9b93c25d8a98bffdfc0a847f0dbe
 
 ## License
 
-[MIT License](https://opensource.org/licenses/MIT) (c) 2023
+[MIT License](https://opensource.org/licenses/MIT) (c) 2025
