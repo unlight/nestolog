@@ -1,3 +1,10 @@
+## [3.1.1](https://github.com/unlight/nestolog/compare/v3.1.0...v3.1.1) (2025-01-25)
+
+
+### Bug Fixes
+
+* Add missing `fatal` method ([0835e39](https://github.com/unlight/nestolog/commit/0835e39173c3cf57927c9ede4819bd9ad8268a55))
+
 # [3.1.0](https://github.com/unlight/nestolog/compare/v3.0.0...v3.1.0) (2024-12-08)
 
 
