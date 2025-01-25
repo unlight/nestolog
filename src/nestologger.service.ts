@@ -18,6 +18,7 @@ import { Entry } from './types';
 @Injectable()
 export class NestoLogger implements LoggerService {
   verbose = this.debug.bind(this);
+  fatal = this.error.bind(this);
   private logger: typeof ololog;
 
   constructor(
