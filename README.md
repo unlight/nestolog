@@ -18,7 +18,7 @@ import { Logger } from '@nestjs/common';
 import { NestologModule } from 'nestolog';
 
 @Module({
-  imports: [NestologModule.forRoot(options)],
+  imports: [NestologModule.register(options)],
 })
 export class AppModule {}
 ```

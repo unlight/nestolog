@@ -1,8 +1,8 @@
 import { Injectable, Logger, Module } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
-import { NestologModule } from './nestolog.module';
-import { NestoLogger } from './nestologger.service';
+import { NestologModule } from '../src/nestolog.module';
+import { NestoLogger } from '../src/nestologger.service';
 
 const loggerModule = NestologModule.register({});
 

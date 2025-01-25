@@ -28,7 +28,9 @@
   },
   "homepage": "https://github.com/unlight/nestolog#readme",
   "scripts": {
-    "testapp": "ts-node-dev app/main.ts",
+    "testmain": "ts-node app/main.ts",
+    "testmain:dev": "ts-node-dev --inspect -- app/main.ts",
+    "testapp": "ts-node app/test-app.ts",
     "test": "npm run eslint && npm run tscheck && npm run test:cov",
     "test:r": "vitest run src",
     "test:cov": "vitest run src --coverage",
